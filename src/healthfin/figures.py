@@ -21,7 +21,7 @@ COL = {"gov_share": "#2a78d6", "ext_share": "#1baf7a", "oop_share": "#eb6834", "
 plt.rcParams.update({"font.family": "DejaVu Sans", "font.size": 10.5, "axes.edgecolor": "#d6d4ce", "axes.labelcolor": INK2,
                      "xtick.color": INK2, "ytick.color": INK2, "axes.spines.top": False, "axes.spines.right": False,
                      "axes.grid": True, "grid.color": GRID, "axes.axisbelow": True, "figure.dpi": 150})
-NOTE = ("Daniel Oyewale · Petgrave.io · Data: WHO Global Health Expenditure Database via World Bank HNP Statistics "
+NOTE = ("Daniel Oyewale · Data: WHO Global Health Expenditure Database via World Bank HNP Statistics "
         "(CC BY 4.0)")
 
 

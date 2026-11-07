@@ -16,53 +16,59 @@ from healthfin.model import load, table  # noqa: E402
 from healthfin.simulator import (BHCPF_2025, FED_BUDGET_2025, FED_HEALTH_2025, FX_DEFAULT, STATES_HEALTH_2025,  # noqa: E402
                                  TARGETS, max_observed_oop_change, simulate)
 
-INK, INK2, INK3, BORDER, GRID = "#0b0b0b", "#52514e", "#8a8984", "#e7e5e0", "#ecebe7"
-BLUE, ORANGE, AQUA, GREY, NAVY = "#2a78d6", "#eb6834", "#1baf7a", "#b9b7b0", "#0d366b"
+INK, INK2, INK3, BORDER, GRID = "#1f2933", "#5a6573", "#8a94a1", "#e1e5ea", "#edf0f3"
+BLUE, ORANGE, AQUA, GREY, NAVY = "#2a78d6", "#eb6834", "#1baf7a", "#b9b7b0", "#162a47"
+WASH = "#f4f6f9"
 COL = {"gov_share": BLUE, "ext_share": AQUA, "oop_share": ORANGE, "other_pvt_share": GREY}
 REPO = "https://github.com/Engr-Daniel/health-financing-nigeria"
 
-st.set_page_config(page_title="Who pays for healthcare in Nigeria?", page_icon="🩺", layout="wide",
+st.set_page_config(page_title="Who pays for healthcare in Nigeria?", page_icon=str(Path(__file__).parent / "static" / "favicon.png"), layout="wide",
                    initial_sidebar_state="auto")
 st.markdown(f"""<style>
-  .block-container {{padding-top:1.4rem; padding-bottom:3rem; max-width:1380px;}}
-  [data-testid="stSidebar"] {{border-right:1px solid {BORDER};}}
-  .hero {{background:linear-gradient(120deg,#5a1e0e 0%,#8c3418 45%,{NAVY} 100%); color:#fff; border-radius:18px;
-          padding:26px 30px 22px; margin-bottom:18px;}}
-  .hero .eyebrow {{font-size:.74rem; letter-spacing:.12em; text-transform:uppercase; opacity:.85; font-weight:600;}}
-  .hero h1 {{color:#fff; font-size:2.0rem; line-height:1.2; margin:6px 0 8px; padding:0;}}
-  .hero p {{color:rgba(255,255,255,.88); margin:0; max-width:900px; line-height:1.5;}}
-  .hero .meta {{display:flex; flex-wrap:wrap; gap:8px; margin-top:16px;}}
-  .chip {{font-size:.76rem; padding:4px 11px; border-radius:999px; background:rgba(255,255,255,.12);
-          border:1px solid rgba(255,255,255,.25); color:#fff;}}
-  .kpis {{display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:12px; margin-bottom:6px;}}
-  .kpi {{background:#fff; border:1px solid {BORDER}; border-radius:14px; padding:16px 18px 14px; min-height:124px;
-         box-shadow:0 1px 2px rgba(16,24,40,.04);}}
-  .kpi .l {{font-size:.7rem; color:{INK2}; text-transform:uppercase; letter-spacing:.07em; font-weight:700;}}
-  .kpi .v {{font-size:1.8rem; font-weight:700; color:{INK}; margin-top:8px; line-height:1.15; font-variant-numeric:tabular-nums;}}
-  .kpi .v span {{font-size:.9rem; font-weight:500; color:{INK2};}}
-  .kpi .s {{font-size:.8rem; color:{INK2}; margin-top:6px; line-height:1.35;}}
-  .headline {{font-size:1.08rem; line-height:1.55; color:{INK}; background:#fff; border:1px solid {BORDER};
-             border-radius:12px; padding:14px 18px; margin:4px 0 16px;}}
-  .card {{background:#fff; border:1px solid {BORDER}; border-radius:14px; padding:16px 18px; height:100%;}}
-  .card h4 {{margin:0 0 10px; padding:0; font-size:.98rem;}}
-  .muted {{color:{INK2}; font-size:.86rem; line-height:1.5;}}
-  .msg {{display:flex; gap:12px; margin-bottom:12px;}}
-  .msg .n {{flex:0 0 26px; height:26px; border-radius:50%; background:{NAVY}; color:#fff; font-weight:700; font-size:.8rem;
-           display:flex; align-items:center; justify-content:center;}}
-  .msg .t {{font-weight:700; font-size:.92rem;}} .msg .b {{font-size:.86rem; color:{INK2}; line-height:1.45;}}
-  .sec {{font-size:1.18rem; font-weight:700; color:{INK}; margin:22px 0 2px;}}
-  .sec-sub {{font-size:.88rem; color:{INK2}; margin:0 0 12px;}}
-  .warn {{font-size:.86rem; color:#7a4a00; background:#fbf3e3; border:1px solid #efd9a6; border-radius:10px; padding:10px 14px; margin:6px 0;}}
-  .foot {{border-top:1px solid {BORDER}; margin-top:34px; padding-top:14px; font-size:.78rem; color:{INK3}; line-height:1.6;}}
-  div[data-testid="stTabs"] [data-baseweb="tab-list"] {{gap:6px; border-bottom:1px solid {BORDER};}}
-  div[data-testid="stTabs"] button p {{font-size:.95rem; font-weight:600;}}
+  .block-container {{padding-top:1.8rem; padding-bottom:3rem; max-width:1320px;}}
+  h1, h2, h3, h4 {{color:{NAVY}; letter-spacing:-.02em;}}
+  [data-testid="stSidebar"] a, [data-testid="stSidebar"] button {{color:#fff !important;}}
+  .hero {{display:grid; grid-template-columns:1fr 300px; gap:48px; align-items:center; padding:4px 0 26px;
+          border-bottom:3px solid {NAVY}; margin-bottom:22px;}}
+  .hero h1 {{color:{NAVY}; font-size:clamp(2rem, 4vw, 3.3rem); font-weight:900; line-height:.98; letter-spacing:-.04em;
+            margin:0 0 14px; padding:0;}}
+  .hero .ans {{font-size:1.3rem; font-weight:300; line-height:1.35; margin:0 0 10px; color:{INK}; max-width:46ch;}}
+  .hero .ans b {{font-weight:700; color:{ORANGE};}}
+  .hero p {{color:{INK2}; margin:0; font-size:.95rem; max-width:68ch; line-height:1.55;}}
+  .waf p {{font-size:.9rem; font-weight:600; color:{NAVY}; margin:0 0 8px;}}
+  .waffle {{display:grid; grid-template-columns:repeat(10, 1fr); gap:3px;}}
+  .waffle i {{aspect-ratio:1; border-radius:2px;}}
+  .wkey {{display:grid; grid-template-columns:1fr 1fr; gap:4px 12px; margin-top:10px; font-size:.8rem; color:{INK2};}}
+  .wkey span:before {{content:""; display:inline-block; width:10px; height:10px; border-radius:2px; margin-right:6px; background:var(--c);}}
+  .kpis {{display:grid; grid-template-columns:repeat(auto-fit, minmax(150px, 1fr)); gap:22px; margin-bottom:10px;}}
+  .kpi {{border-top:3px solid {NAVY}; padding:12px 0 6px; min-height:120px;}}
+  .kpi .l {{font-size:.88rem; color:{NAVY}; font-weight:600;}}
+  .kpi .v {{font-size:2.1rem; font-weight:800; color:{NAVY}; margin-top:6px; line-height:1.1; letter-spacing:-.03em;
+           font-variant-numeric:tabular-nums;}}
+  .kpi .v span {{font-size:.95rem; font-weight:500; color:{INK2}; letter-spacing:0;}}
+  .kpi .s {{font-size:.82rem; color:{INK2}; margin-top:4px; line-height:1.4;}}
+  .headline {{font-size:1.25rem; font-weight:300; line-height:1.5; color:{INK}; margin:6px 0 22px; max-width:80ch;}}
+  .headline b {{font-weight:700; color:{NAVY};}}
+  .card {{background:{WASH}; padding:20px 22px; height:100%; border-radius:4px;}}
+  .card h4 {{margin:0 0 12px; padding:0; font-size:1.05rem;}}
+  .muted {{color:{INK2}; font-size:.9rem; line-height:1.55;}}
+  .msg {{margin-bottom:16px;}} .msg .n {{display:none;}}
+  .msg .t {{font-weight:700; font-size:.98rem; color:{NAVY};}} .msg .b {{font-size:.9rem; color:{INK2}; line-height:1.5;}}
+  .sec {{font-size:1.45rem; font-weight:800; color:{NAVY}; margin:28px 0 2px; letter-spacing:-.025em;}}
+  .sec-sub {{font-size:.92rem; color:{INK2}; margin:0 0 14px;}}
+  .warn {{font-size:.9rem; color:{INK}; border-left:4px solid {ORANGE}; background:#fdf1eb; padding:10px 14px; margin:8px 0;}}
+  .foot {{border-top:1px solid {BORDER}; margin-top:40px; padding-top:14px; font-size:.84rem; color:{INK2}; line-height:1.6;}}
+  .foot a {{color:{NAVY};}}
+  div[data-testid="stTabs"] [data-baseweb="tab-list"] {{gap:2px; border-bottom:1px solid {BORDER};}}
+  div[data-testid="stTabs"] button p {{font-size:.98rem; font-weight:600;}}
   .mhint {{display:none;}}
   @media (max-width:768px) {{
-    .block-container {{padding:3.2rem .8rem 2rem;}} .hero {{padding:18px;}} .hero h1 {{font-size:1.4rem;}}
-    .hero p {{font-size:.9rem;}} .kpis {{grid-template-columns:repeat(2,1fr); gap:8px;}} .kpi {{min-height:0; padding:12px;}}
-    .kpi .v {{font-size:1.35rem;}} .kpi .s {{font-size:.74rem;}} .mhint {{display:block; font-size:.78rem; margin-top:10px;}}
+    .block-container {{padding:3.2rem .9rem 2rem;}} .hero {{grid-template-columns:1fr; gap:22px;}} .waf {{max-width:280px;}}
+    .hero h1 {{font-size:2rem;}} .hero .ans {{font-size:1.1rem;}} .hero p {{font-size:.9rem;}}
+    .kpis {{grid-template-columns:repeat(2, 1fr); gap:14px;}} .kpi {{min-height:0;}} .kpi .v {{font-size:1.5rem;}}
+    .kpi .s {{font-size:.76rem;}} .headline {{font-size:1.05rem;}} .mhint {{display:block; font-size:.82rem; margin-top:10px; color:{INK2};}}
     div[data-testid="stTabs"] [data-baseweb="tab-list"] {{overflow-x:auto; flex-wrap:nowrap;}}
-    div[data-testid="stTabs"] button {{white-space:nowrap; padding:8px;}} div[data-testid="stTabs"] button p {{font-size:.85rem;}}
+    div[data-testid="stTabs"] button {{white-space:nowrap; padding:8px;}} div[data-testid="stTabs"] button p {{font-size:.86rem;}}
   }}
 </style>""", unsafe_allow_html=True)
 try:
@@ -85,9 +91,9 @@ def section(t, sub=""):
 def style(fig, title, sub=None, h=360, legend=False):
     fig.update_layout(
         title=dict(text=f"<b>{title}</b>" + (f"<br><span style='font-size:12px;color:{INK2};font-weight:400'>{sub}</span>"
-                                             if sub else ""), x=0, font=dict(size=15, color=INK)),
+                                             if sub else ""), x=0, font=dict(size=16, color=NAVY)),
         height=h, margin=dict(l=6, r=24, t=74 if sub else 48, b=(80 if MOBILE else 56) if legend else 8), paper_bgcolor="rgba(0,0,0,0)",
-        plot_bgcolor="rgba(0,0,0,0)", font=dict(color=INK2, size=12), barcornerradius=4,
+        plot_bgcolor="rgba(0,0,0,0)", font=dict(family="Public Sans, sans-serif", color=INK2, size=12), barcornerradius=2,
         hoverlabel=dict(bgcolor="white", bordercolor=BORDER, font=dict(color=INK)), showlegend=legend,
         legend=dict(orientation="h", y=-0.1, yanchor="top", x=0, font=dict(size=11 if MOBILE else 12)))
     fig.update_xaxes(gridcolor=GRID, zeroline=False, linecolor=BORDER)
@@ -106,20 +112,29 @@ rank_bud, _ = nigeria_rank("gov_budget_share", higher_is_worse=False)
 last_p = PROT.iloc[-1]
 
 with st.sidebar:
-    st.markdown("### 🩺 About")
+    st.markdown("### About")
     st.caption("Health-financing analysis of Nigeria using WHO Global Health Expenditure Database and World Bank data "
                "(2000–2023), with a funding-gap simulator.")
-    st.link_button("Code, data & method on GitHub", REPO, width="stretch")
-    st.caption("Built by **Daniel Oyewale** · Petgrave.io")
+    st.link_button("Code and method", REPO, width="stretch")
+    st.caption("Daniel Oyewale")
 
-st.markdown(f"""<div class="hero"><div class="eyebrow">Health financing · Nigeria · Universal health coverage</div>
+_raw = {c: float(MIX[c].iloc[-1]) for c, _ in SOURCES}  # largest-remainder rounding: squares sum to exactly 100
+_w = {c: int(v) for c, v in _raw.items()}
+for c in sorted(_raw, key=lambda c: _raw[c] - _w[c], reverse=True)[:100 - sum(_w.values())]:
+    _w[c] += 1
+_order = ["oop_share", "gov_share", "ext_share", "other_pvt_share"]
+_names = {"oop_share": "Patients", "gov_share": "Government", "ext_share": "Donors", "other_pvt_share": "Other private"}
+st.markdown(f"""<div class="hero"><div>
 <h1>Who pays for healthcare in Nigeria?</h1>
-<p>Mostly, the patient. Households pay {B['oop_share']:.0f}% of all health spending directly, the highest share in
-sub-Saharan Africa. This dashboard shows where the money comes from, what it does to families, whether more public money
-buys better health, and what closing the gap would cost.</p>
-<div class="meta"><span class="chip">Latest data: {B['year']}</span><span class="chip">{n_ssa} African peers</span>
-<span class="chip">Source: WHO GHED · World Bank</span></div>
-<div class="mhint">Swipe the tabs to explore; the simulator is in the last-but-one tab.</div></div>""", unsafe_allow_html=True)
+<p class="ans">Mostly, the patient. Households paid <b>{B['oop_share']:.0f}%</b> of all health spending in {B['year']}, the
+highest share of {n_ssa} countries in sub-Saharan Africa.</p>
+<p>Where the money comes from, what it does to families, whether more public money buys better health, and what closing
+the gap would cost. WHO and World Bank data, 2000 to {B['year']}.</p>
+<div class="mhint">The funding-gap simulator is in the fifth tab.</div></div>
+<div class="waf"><p>Of every $100 spent on health in {B['year']}</p><div class="waffle">"""
+            + "".join(f'<i style="background:{COL[c]}"></i>' * _w[c] for c in _order)
+            + '</div><div class="wkey">' + "".join(f'<span style="--c:{COL[c]}"><b>${_w[c]}</b> {_names[c]}</span>' for c in _order)
+            + "</div></div></div>", unsafe_allow_html=True)
 
 tabs = st.tabs(["Overview", "Africa comparison", "Financial protection", "Does money buy health?", "Funding-gap simulator",
                 "Method & data"])
@@ -156,7 +171,7 @@ with tabs[0]:
                                                     "have far fewer such families."),
                 ("Money alone isn't enough", "Across Africa, how much a government spends isn't robustly linked to child "
                                              "deaths. How much patients pay at the point of care is."),
-                ("The Abuja target is affordable-ish", "Reaching 15% of the budget means ~$5.4bn a year more (1.5% of GDP), "
+                ("The Abuja target is within reach", "Reaching 15% of the budget means ~$5.4bn a year more (1.5% of GDP), "
                                                       "and could roughly halve catastrophic spending.")]
         st.markdown('<div class="card"><h4>Key findings</h4>' + "".join(
             f'<div class="msg"><div class="n">{i}</div><div><div class="t">{t}</div><div class="b">{html.escape(b_)}</div></div></div>'
@@ -289,7 +304,7 @@ with tabs[4]:
     kpis([("Extra public spending", f"${r.total_usd / 1e9:,.1f}", "bn/yr", f"₦{r.total_ngn / 1e12:,.1f}tn · {r.pct_gdp:.1f}% of GDP · "
                                                                            f"{r.multiple_of_fed_health:.1f}× the 2025 federal health budget"),
           ("Per person", f"${r.gov_pc0:.0f}→${r.gov_pc1:.0f}", "", "government health spending per person"),
-          ("Out-of-pocket share", f"{r.oop_share0:.0f}%→{r.oop_share1:.0f}%", "", f"government share → {r.gov_share1:.0f}%"
+          ("Out-of-pocket share", f"{r.oop_share0:.0f}→{r.oop_share1:.0f}", "%", f"government share → {r.gov_share1:.0f}%"
                                                                                   + (" · floor reached" if r.at_floor else "")),
           ("Catastrophic spending", f"{r.cata0:.1f}→{r.cata1:.1f}", "%", f"range {r.cata1_lo:.1f}–{r.cata1_hi:.1f}% · "
                                                                         f"≈{r.people_protected / 1e6:.0f}M fewer people"),
@@ -360,6 +375,5 @@ with tabs[5]:
     with st.expander("Sources and assumptions table"):
         st.dataframe(pd.read_csv(ROOT / "data" / "reference" / "assumptions.csv"), hide_index=True, width="stretch")
 
-st.markdown(f'<div class="foot">Data: WHO Global Health Expenditure Database and World Bank (CC BY 4.0). Analysis for '
-            f'research and advocacy; not official statistics. · <a href="{REPO}">Code &amp; method</a> · Built by Daniel '
-            'Oyewale, Petgrave.io</div>', unsafe_allow_html=True)
+st.markdown(f'<div class="foot">Analysis for research and advocacy, not official statistics. Sources are listed under '
+            f'Method &amp; data. <a href="{REPO}">Source code</a></div>', unsafe_allow_html=True)

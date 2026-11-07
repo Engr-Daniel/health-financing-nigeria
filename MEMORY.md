@@ -3,7 +3,7 @@
 Long-term project memory: context, decisions and lessons. Newest decisions first.
 
 ## Context
-- **Owner:** Daniel Oyewale (Petgrave.io). Portfolio project 4 of 5. The others cover carbon accounting, data strategy, solar
+- **Owner:** Daniel Oyewale (personal portfolio project; no employer affiliation in this repo). Portfolio project 4 of 5. The others cover carbon accounting, data strategy, solar
   mini-grids and greenwashing detection. Project 4 was rescoped from climate/crops to finance and health.
 - **Question:** who pays for healthcare in Nigeria, what does it cost families, does public money buy health, and what
   would closing the gap cost?
@@ -20,6 +20,7 @@ Long-term project memory: context, decisions and lessons. Newest decisions first
 ## Decision log
 | Date | Decision | Reason |
 |---|---|---|
+| 2026-11-07 | Own visual identity for app and site: Public Sans only, white/navy, 'every $100' grid header. Fonts self-hosted (app/static, site/assets/fonts, SIL OFL) | Owner: each project must look distinct, not like a generic template; personal project, so no employer branding |
 | 2026-11-07 | Dashboard tabs: Overview → Africa comparison → Financial protection → Does money buy health? → Simulator → Method | Stakeholder story order; mobile via CSS grid + User-Agent switch |
 | 2026-11-07 | Policy brief is generated from code (`healthfin.brief`) | Numbers in the brief always match the dashboard |
 | 2026-11-07 | Simulator OOP floor (default 15%) plus `at_floor` / `effect_extrapolated` flags | Without a floor, large targets drove OOP to 0%, which is implausible |

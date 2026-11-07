@@ -84,5 +84,5 @@ tests/           data, model, simulator and app tests
 
 ## Author
 
-**Daniel Oyewale** · data analyst, data strategist and sustainability researcher at Petgrave.io.
+**Daniel Oyewale**, data analyst, data strategist and sustainability researcher.
 Licensed under MIT; data under CC BY 4.0 (World Bank / WHO).

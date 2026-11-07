@@ -49,7 +49,7 @@ def _footer(canvas, doc):
     canvas.saveState()
     canvas.setFont("Helvetica", 7)
     canvas.setFillColor(INK2)
-    canvas.drawString(16 * mm, 10 * mm, "Who pays for healthcare in Nigeria? · Daniel Oyewale, Petgrave.io · "
+    canvas.drawString(16 * mm, 10 * mm, "Who pays for healthcare in Nigeria? · Daniel Oyewale · "
                                         "github.com/Engr-Daniel/health-financing-nigeria")
     canvas.drawRightString(A4[0] - 16 * mm, 10 * mm, f"{doc.page}/2")
     canvas.restoreState()

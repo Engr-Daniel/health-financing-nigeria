@@ -1,9 +1,28 @@
 [theme]
 base = "light"
-primaryColor = "#0d366b"
-backgroundColor = "#fcfcfb"
-secondaryBackgroundColor = "#f3f2ef"
-textColor = "#0b0b0b"
+primaryColor = "#162a47"
+backgroundColor = "#ffffff"
+secondaryBackgroundColor = "#f4f6f9"
+textColor = "#1f2933"
+borderColor = "#e1e5ea"
+baseRadius = "small"
+font = "Public Sans, sans-serif"
+headingFont = "Public Sans, sans-serif"
+
+[[theme.fontFaces]]
+family = "Public Sans"
+url = "app/static/public-sans-latin-wght-normal.woff2"
+weight = "100 900"
+style = "normal"
+
+[theme.sidebar]
+backgroundColor = "#162a47"
+secondaryBackgroundColor = "#21385c"
+textColor = "#dfe6f0"
+borderColor = "#2f4a72"
+
+[server]
+enableStaticServing = true
 
 [client]
 toolbarMode = "minimal"

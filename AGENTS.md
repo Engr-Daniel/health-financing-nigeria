@@ -5,7 +5,7 @@ Instructions for AI coding agents and human collaborators working in this reposi
 ## Project at a glance
 Health-financing analysis of Nigeria: who pays for healthcare, what out-of-pocket payments do to families, whether public
 money is linked to better health across Africa, and what closing the funding gap would cost. It ships a Streamlit
-dashboard with a funding-gap simulator and a two-page policy brief. It is a portfolio project by Daniel Oyewale (Petgrave.io).
+dashboard with a funding-gap simulator and a two-page policy brief. It is a personal portfolio project by Daniel Oyewale.
 
 **Read `MEMORY.md` (context & decisions) and `TASK.md` (priorities) before starting work.**
 
