@@ -23,9 +23,10 @@ COL = {"gov_share": BLUE, "ext_share": AQUA, "oop_share": ORANGE, "other_pvt_sha
 REPO = "https://github.com/Engr-Daniel/health-financing-nigeria"
 
 st.set_page_config(page_title="Who pays for healthcare in Nigeria?", page_icon=str(Path(__file__).parent / "static" / "favicon.png"), layout="wide",
-                   initial_sidebar_state="auto")
+                   initial_sidebar_state="collapsed")
 st.markdown(f"""<style>
-  .block-container {{padding-top:1.8rem; padding-bottom:3rem; max-width:1320px;}}
+  .block-container {{padding-top:4.6rem; padding-bottom:2rem; max-width:1320px;}}
+  [data-testid="stSidebarCollapsedControl"], [data-testid="stExpandSidebarButton"] {{display:none;}}
   h1, h2, h3, h4 {{color:{NAVY}; letter-spacing:-.02em;}}
   [data-testid="stSidebar"] a, [data-testid="stSidebar"] button {{color:#fff !important;}}
   .hero {{display:grid; grid-template-columns:1fr 300px; gap:48px; align-items:center; padding:4px 0 26px;
@@ -57,13 +58,16 @@ st.markdown(f"""<style>
   .sec {{font-size:1.45rem; font-weight:800; color:{NAVY}; margin:28px 0 2px; letter-spacing:-.025em;}}
   .sec-sub {{font-size:.92rem; color:{INK2}; margin:0 0 14px;}}
   .warn {{font-size:.9rem; color:{INK}; border-left:4px solid {ORANGE}; background:#fdf1eb; padding:10px 14px; margin:8px 0;}}
-  .foot {{border-top:1px solid {BORDER}; margin-top:40px; padding-top:14px; font-size:.84rem; color:{INK2}; line-height:1.6;}}
-  .foot a {{color:{NAVY};}}
+  .foot {{display:flex; flex-wrap:wrap; justify-content:space-between; gap:12px 28px; border-top:3px solid {NAVY};
+          margin-top:48px; padding:18px 0 4px; font-size:.9rem; color:{INK2};}}
+  .foot b {{color:{NAVY};}} .foot nav a {{color:{NAVY}; font-weight:600; text-decoration:none; margin-left:22px;}}
+  .foot nav a {{white-space:nowrap; display:inline-block;}} .foot nav a:first-child {{margin-left:0;}} .foot nav a:hover {{text-decoration:underline;}}
+  .foot small {{flex-basis:100%; font-size:.8rem; color:{INK3};}}
   div[data-testid="stTabs"] [data-baseweb="tab-list"] {{gap:2px; border-bottom:1px solid {BORDER};}}
   div[data-testid="stTabs"] button p {{font-size:.98rem; font-weight:600;}}
   .mhint {{display:none;}}
   @media (max-width:768px) {{
-    .block-container {{padding:3.2rem .9rem 2rem;}} .hero {{grid-template-columns:1fr; gap:22px;}} .waf {{max-width:280px;}}
+    .block-container {{padding:4.2rem .9rem 2rem;}} .foot nav a {{margin:0 16px 0 0;}} .hero {{grid-template-columns:1fr; gap:22px;}} .waf {{max-width:280px;}}
     .hero h1 {{font-size:2rem;}} .hero .ans {{font-size:1.1rem;}} .hero p {{font-size:.9rem;}}
     .kpis {{grid-template-columns:repeat(2, 1fr); gap:14px;}} .kpi {{min-height:0;}} .kpi .v {{font-size:1.5rem;}}
     .kpi .s {{font-size:.76rem;}} .headline {{font-size:1.05rem;}} .mhint {{display:block; font-size:.82rem; margin-top:10px; color:{INK2};}}
@@ -110,13 +114,6 @@ B, MIX, SSA, PROT, (CFIT, CDAT), MODELS = base()
 rank_oop, n_ssa = nigeria_rank("oop_share")
 rank_bud, _ = nigeria_rank("gov_budget_share", higher_is_worse=False)
 last_p = PROT.iloc[-1]
-
-with st.sidebar:
-    st.markdown("### About")
-    st.caption("Health-financing analysis of Nigeria using WHO Global Health Expenditure Database and World Bank data "
-               "(2000–2023), with a funding-gap simulator.")
-    st.link_button("Code and method", REPO, width="stretch")
-    st.caption("Daniel Oyewale")
 
 _raw = {c: float(MIX[c].iloc[-1]) for c, _ in SOURCES}  # largest-remainder rounding: squares sum to exactly 100
 _w = {c: int(v) for c, v in _raw.items()}
@@ -375,5 +372,8 @@ with tabs[5]:
     with st.expander("Sources and assumptions table"):
         st.dataframe(pd.read_csv(ROOT / "data" / "reference" / "assumptions.csv"), hide_index=True, width="stretch")
 
-st.markdown(f'<div class="foot">Analysis for research and advocacy, not official statistics. Sources are listed under '
-            f'Method &amp; data. <a href="{REPO}">Source code</a></div>', unsafe_allow_html=True)
+st.markdown(f'''<div class="foot"><span><b>Daniel Oyewale</b>, data analyst and sustainability researcher</span>
+<nav><a href="{REPO}/blob/master/reports/policy_brief.pdf" target="_blank">Policy brief (PDF)</a>
+<a href="{REPO}" target="_blank">Code and method</a><a href="https://github.com/Engr-Daniel" target="_blank">More projects</a></nav>
+<small>Data: WHO Global Health Expenditure Database and World Bank (CC BY 4.0). Analysis for research and advocacy, not
+official statistics.</small></div>''', unsafe_allow_html=True)
