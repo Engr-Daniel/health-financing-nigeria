@@ -12,7 +12,7 @@ Status: `[x]` done · `[ ]` to do
 - [x] README, AGENTS, MEMORY, TASK
 
 ## 🚀 Phase 2: Publish
-- [ ] Deploy to Streamlit Community Cloud *(you)*
+- [x] Deploy to Streamlit Community Cloud: https://health-financing-nigeria.streamlit.app/
 - [ ] Make the repo public, then enable GitHub Pages (Source: GitHub Actions) *(you)*
 - [ ] LinkedIn post
 
