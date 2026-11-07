@@ -5,7 +5,7 @@ share of 48 countries in sub-Saharan Africa. This project shows where Nigeria's 
 at the point of care does to families, whether more public money is linked to better health across Africa, and what
 closing the funding gap would cost.
 
-**Live dashboard:** *(link after deployment)* · **Policy brief:** [`reports/policy_brief.pdf`](reports/policy_brief.pdf)
+**Live dashboard:** [health-financing-nigeria.streamlit.app](https://health-financing-nigeria.streamlit.app/) · **Project site:** [engr-daniel.github.io/health-financing-nigeria](https://engr-daniel.github.io/health-financing-nigeria/) · **Policy brief:** [`reports/policy_brief.pdf`](reports/policy_brief.pdf)
 
 ![Dashboard overview](docs/dashboard_overview.png)
 
